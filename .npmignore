@@ -1,0 +1,6 @@
+src
+vite.config.js
+.eslintrc*
+.vscode
+.idea
+.editorconfig
