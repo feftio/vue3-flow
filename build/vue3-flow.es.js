@@ -1,4 +1,4 @@
-import { markRaw as p, defineAsyncComponent as w, reactive as i, ref as _, useAttrs as y, onBeforeMount as U, onBeforeUpdate as m, onBeforeUnmount as B, onMounted as v, onUpdated as E, onUnmounted as k, computed as M, unref as c, openBlock as b, createBlock as P, resolveDynamicComponent as C, mergeProps as A, toHandlers as N, createCommentVNode as q, h as O, getCurrentInstance as F } from "vue";
+import { markRaw as p, defineAsyncComponent as w, reactive as i, ref as _, useAttrs as y, onBeforeMount as U, onBeforeUpdate as m, onBeforeUnmount as B, onMounted as v, onUpdated as E, onUnmounted as k, computed as M, unref as c, openBlock as P, createBlock as b, resolveDynamicComponent as C, mergeProps as A, toHandlers as N, createCommentVNode as q, h as O, getCurrentInstance as F } from "vue";
 function g(e, o, n) {
   if (typeof n == "string")
     return o.value = n, o.value;
@@ -12,7 +12,7 @@ function x(e, o, n) {
     throw new Error(`Field "component" of "${o}" is not defined`);
   if (typeof n.component == "function")
     e[o].component = p(w(n.component));
-  else if (typeof n.component.render == "function")
+  else if (typeof n.component.render == "function" || typeof n.component.setup == "function")
     e[o].component = p(n.component);
   else
     throw new Error(`Field "component" of "${o}" must be function or object`);
@@ -94,7 +94,7 @@ const V = {
       n.onUnmounted.forEach(async (r) => await r());
     }), u.value = Object.keys(s)[0];
     const t = M(() => s[u.value]);
-    return (r, a) => c(t).show ? (b(), P(C(c(t).component), A({ key: 0 }, c(t).props, N(c(t).events)), null, 16)) : q("", !0);
+    return (r, a) => c(t).show ? (P(), b(C(c(t).component), A({ key: 0 }, c(t).props, N(c(t).events)), null, 16)) : q("", !0);
   }
 }), H = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
@@ -225,7 +225,7 @@ function R(e) {
     };
   };
 }
-function j() {
+function G() {
   return F().emit;
 }
 export {
@@ -233,6 +233,6 @@ export {
   T as FlowView,
   D as defineAction,
   R as defineEmit,
-  j as getEmit,
+  G as getEmit,
   I as registerFlowTree
 };
