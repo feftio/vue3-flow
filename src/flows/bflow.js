@@ -1,4 +1,4 @@
-import { defineAction, getEmit } from '~'
+import { defineAction, getEmit } from '@@'
 
 export default function bflow (ctx) {
   const emit = getEmit()

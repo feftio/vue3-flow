@@ -1,4 +1,4 @@
-import { registerFlowTree } from '~/registers'
+import { registerFlowTree } from '@@/registers'
 
 const routes = [
   ...registerFlowTree({

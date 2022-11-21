@@ -1,5 +1,4 @@
 src
-lib
 vite.config.js
 .eslintrc*
 .vscode

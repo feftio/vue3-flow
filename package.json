@@ -1,12 +1,23 @@
 {
   "name": "vue3-flow",
   "version": "0.0.7",
-  "description": "",
-  "author": "Eduard Lik",
+  "description": "Dynamic routing components library",
+  "author": {
+    "name": "Eduard Lik",
+    "email": "feft99@gmail.com"
+  },
+  "keywords": [
+    "vue3-flow",
+    "vue3 library"    
+  ],
   "license": "MIT",
   "type": "module",
   "main": "./build/vue3-flow.umd.js",
   "module": "./build/vue3-flow.es.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/feftio/vue3-flow.git"
+  },
   "exports": {
     ".": {
       "import": "./build/vue3-flow.es.js",
@@ -18,7 +29,7 @@
     "build": "vite build"
   },
   "peerDependencies": {
-    "vue": "^3.2.41"
+    "vue": "3.x"
   },
   "devDependencies": {
     "eslint": "^8.27.0",

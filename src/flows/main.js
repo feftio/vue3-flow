@@ -1,4 +1,4 @@
-import { defineAction, defineEmit } from '~'
+import { defineAction } from '@@'
 import bflow from './bflow'
 
 export function main (ctx) {
@@ -11,8 +11,11 @@ export function main (ctx) {
         }
       })
     },
-    events: {},
-    show: true
+    events: {
+      action: () => {
+        console.dir('asdasd')
+      }
+    }
   })
 
   ctx.addFlow('BFlow', {
@@ -27,7 +30,7 @@ export function main (ctx) {
     props: {
       action: defineAction({
         finish: () => {
-          ctx.next('BFlow')
+          ctx.next('APage')
         }
       })
     }

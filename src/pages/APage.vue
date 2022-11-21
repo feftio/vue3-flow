@@ -3,6 +3,9 @@
   <button @click="props.action('finish')">
     Button
   </button>
+  <button @click="emit('action')">
+    EmitButton
+  </button>
 </template>
 
 <script setup>
@@ -12,4 +15,6 @@ const props = defineProps({
     required: true
   }
 })
+
+const emit = defineEmits(['action'])
 </script>
