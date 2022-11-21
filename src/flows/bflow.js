@@ -2,6 +2,7 @@ import { defineAction, getEmit } from '~'
 
 export default function bflow (ctx) {
   const emit = getEmit()
+
   ctx.addPage('B1Page', {
     component: () => import('@/pages/B1Page.vue'),
     props: {

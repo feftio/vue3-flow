@@ -3,7 +3,6 @@ import path from 'path'
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath } from 'url'
 
-
 export default defineConfig({
   root: path.resolve(__dirname, 'src', 'server'),
   plugins: [vue()],
@@ -17,12 +16,23 @@ export default defineConfig({
     port: 8000
   },
   build: {
-    outDir: path.resolve(__dirname, 'dist'),
+    outDir: path.resolve(__dirname, 'build'),
     emptyOutDir: true,
     rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'src', 'server', 'index.html')
+      external: ['vue'],
+      output: {
+        globals: {
+          vue: 'Vue'
+        }
       }
+      // input: {
+      //   main: path.resolve(__dirname, 'src', 'server', 'index.html')
+      // }
+    },
+    lib: {
+      entry: path.resolve(__dirname, 'lib', 'index.js'),
+      name: 'vue3-flow',
+      fileName: (format) => `vue3-flow.${format}.js`
     }
   }
 })

@@ -4,10 +4,18 @@
   "description": "",
   "author": "Eduard Lik",
   "license": "MIT",
-  "main": "./lib/index.js",
   "type": "module",
+  "main": "./build/vue3-flow.umd.js",
+  "module": "./build/vue3-flow.es.js",
+  "exports": {
+    ".": {
+      "import": "./build/vue3-flow.es.js",
+      "require": "./build/vue3-flow.umd.js"
+    }
+  },
   "scripts": {
-    "start": "vite serve"
+    "start": "vite serve",
+    "build": "vite build"
   },
   "dependencies": {
     "vue": "^3.2.41"
