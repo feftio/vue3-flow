@@ -1,37 +1,37 @@
-import { markRaw as d, defineAsyncComponent as w, reactive as p, ref as y, useAttrs as m, onBeforeMount as E, onBeforeUpdate as v, onBeforeUnmount as U, onMounted as B, onUpdated as k, onUnmounted as O, computed as g, unref as c, openBlock as F, createBlock as M, resolveDynamicComponent as $, mergeProps as x, toHandlers as P, createCommentVNode as C, getCurrentInstance as h } from "vue";
-function A(e, n, o) {
-  if (typeof o == "string")
-    return n.value = o, n.value;
-  const r = Object.keys(e), s = r.indexOf(n.value);
-  s + 1 < r.length && (n.value = r[s + 1]);
+import { markRaw as p, defineAsyncComponent as w, reactive as i, ref as _, useAttrs as y, onBeforeMount as U, onBeforeUpdate as m, onBeforeUnmount as B, onMounted as v, onUpdated as E, onUnmounted as k, computed as M, unref as c, openBlock as b, createBlock as P, resolveDynamicComponent as C, mergeProps as A, toHandlers as N, createCommentVNode as q, h as O, getCurrentInstance as F } from "vue";
+function g(e, o, n) {
+  if (typeof n == "string")
+    return o.value = n, o.value;
+  const s = Object.keys(e), u = s.indexOf(o.value);
+  u + 1 < s.length && (o.value = s[u + 1]);
 }
-function N(e, n, o) {
-  if (n in e)
-    throw new Error(`Node "${n}" is already exist`);
-  if (e[n] = {}, !("component" in o))
-    throw new Error(`Field "component" of "${n}" is not defined`);
-  if (typeof o.component == "function")
-    e[n].component = d(w(o.component));
-  else if (typeof o.component.render == "function")
-    e[n].component = o.component;
+function x(e, o, n) {
+  if (o in e)
+    throw new Error(`Node "${o}" is already exist`);
+  if (e[o] = {}, !("component" in n))
+    throw new Error(`Field "component" of "${o}" is not defined`);
+  if (typeof n.component == "function")
+    e[o].component = p(w(n.component));
+  else if (typeof n.component.render == "function")
+    e[o].component = p(n.component);
   else
-    throw new Error(`Field "component" of "${n}" must be function or object`);
-  e[n].props = "props" in o ? o.props : {}, e[n].events = "events" in o ? o.events : {}, e[n].show = "show" in o ? o.show : !0, e[n].type = "page";
+    throw new Error(`Field "component" of "${o}" must be function or object`);
+  e[o].props = "props" in n ? n.props : {}, e[o].events = "events" in n ? n.events : {}, e[o].show = "show" in n ? n.show : !0, e[o].type = "page";
 }
-function b(e, n, o) {
-  if (n in e)
-    throw new Error(`Node "${n}" is already exist`);
-  if (e[n] = {}, e[n].props = "props" in o ? o.props : {}, !("flow" in o))
-    throw new Error(`Field "flow" of "${n}" is not defined`);
-  if (typeof o.flow == "function")
-    e[n].props = { ...e[n].props, flow: o.flow };
+function $(e, o, n) {
+  if (o in e)
+    throw new Error(`Node "${o}" is already exist`);
+  if (e[o] = {}, e[o].props = "props" in n ? n.props : {}, !("flow" in n))
+    throw new Error(`Field "flow" of "${o}" is not defined`);
+  if (typeof n.flow == "function")
+    e[o].props = { ...e[o].props, flow: n.flow };
   else
-    throw new Error(`Field "flow" of "${n}" must be function`);
-  e[n].component = d(w(() => Promise.resolve().then(() => I))), e[n].events = "events" in o ? o.events : {}, e[n].show = "show" in o ? o.show : !0, e[n].type = "flow";
+    throw new Error(`Field "flow" of "${o}" must be function`);
+  e[o].component = p(w(() => Promise.resolve().then(() => H))), e[o].events = "events" in n ? n.events : {}, e[o].show = "show" in n ? n.show : !0, e[o].type = "flow";
 }
-const H = {
+const V = {
   inheritAttrs: !1
-}, _ = /* @__PURE__ */ Object.assign(H, {
+}, l = /* @__PURE__ */ Object.assign(V, {
   __name: "FlowPage",
   props: {
     flow: {
@@ -46,21 +46,106 @@ const H = {
     }
   },
   setup(e) {
-    const n = e, o = {
+    const o = e, n = {
       onBeforeMount: [],
       onBeforeUpdate: [],
       onBeforeUnmount: [],
       onMounted: [],
       onUpdated: [],
       onUnmounted: []
-    }, r = p({}), s = y(null), f = {
-      nodes: r,
+    }, s = i({}), u = _(null), f = {
+      nodes: s,
+      get: () => u.value,
+      next: (r) => g(s, u, r),
+      addPage: (r, a) => x(s, r, a),
+      addFlow: (r, a) => $(s, r, a),
+      store: i({}),
+      props: y(),
+      onBeforeMount: (r) => {
+        n.onBeforeMount.push(r);
+      },
+      onBeforeUpdate: (r) => {
+        n.onBeforeUpdate.push(r);
+      },
+      onBeforeUnmount: (r) => {
+        n.onBeforeUnmount.push(r);
+      },
+      onMounted: (r) => {
+        n.onMounted.push(r);
+      },
+      onUpdated: (r) => {
+        n.onUpdated.push(r);
+      },
+      onUnmounted: (r) => {
+        n.onUnmounted.push(r);
+      }
+    };
+    "__before__" in o.hooks && o.hooks.__before__(f), o.flow(f), "__after__" in o.hooks && o.hooks.__after__(f), U(async () => {
+      n.onBeforeMount.forEach(async (r) => await r());
+    }), m(async () => {
+      n.onBeforeUpdate.forEach(async (r) => await r());
+    }), B(async () => {
+      n.onBeforeUnmount.forEach(async (r) => await r());
+    }), v(async () => {
+      n.onMounted.forEach(async (r) => await r());
+    }), E(async () => {
+      n.onUpdated.forEach(async (r) => await r());
+    }), k(async () => {
+      n.onUnmounted.forEach(async (r) => await r());
+    }), u.value = Object.keys(s)[0];
+    const t = M(() => s[u.value]);
+    return (r, a) => c(t).show ? (b(), P(C(c(t).component), A({ key: 0 }, c(t).props, N(c(t).events)), null, 16)) : q("", !0);
+  }
+}), H = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: l
+}, Symbol.toStringTag, { value: "Module" })), T = {
+  name: "FlowView",
+  props: {
+    flow: {
+      type: Function,
+      required: !0
+    },
+    hooks: {
+      type: Object,
+      default() {
+        return {};
+      }
+    }
+  },
+  setup(e) {
+    return () => O(l, { flow: e.flow, hooks: e.hooks });
+  }
+}, z = {
+  inheritAttrs: !1,
+  props: {
+    flow: {
+      type: Function,
+      required: !0
+    },
+    hooks: {
+      type: Object,
+      default() {
+        return {};
+      }
+    }
+  },
+  setup(e) {
+    const o = {
+      onBeforeMount: [],
+      onBeforeUpdate: [],
+      onBeforeUnmount: [],
+      onMounted: [],
+      onUpdated: [],
+      onUnmounted: []
+    }, n = i({}), s = _(null), u = {
+      nodes: n,
       get: () => s.value,
-      next: (t) => A(r, s, t),
-      addPage: (t, u) => N(r, t, u),
-      addFlow: (t, u) => b(r, t, u),
-      store: p({}),
-      props: m(),
+      next: (t) => g(n, s, t),
+      addPage: (t, r) => x(n, t, r),
+      addFlow: (t, r) => $(n, t, r),
+      store: i({}),
+      props: y(),
       onBeforeMount: (t) => {
         o.onBeforeMount.push(t);
       },
@@ -80,72 +165,74 @@ const H = {
         o.onUnmounted.push(t);
       }
     };
-    "__before__" in n.hooks && n.hooks.__before__(f), n.flow(f), "__after__" in n.hooks && n.hooks.__after__(f), E(async () => {
+    "__before__" in e.hooks && e.hooks.__before__(u), e.flow(u), "__after__" in e.hooks && e.hooks.__after__(u), U(async () => {
       o.onBeforeMount.forEach(async (t) => await t());
-    }), v(async () => {
+    }), m(async () => {
       o.onBeforeUpdate.forEach(async (t) => await t());
-    }), U(async () => {
-      o.onBeforeUnmount.forEach(async (t) => await t());
     }), B(async () => {
+      o.onBeforeUnmount.forEach(async (t) => await t());
+    }), v(async () => {
       o.onMounted.forEach(async (t) => await t());
-    }), k(async () => {
+    }), E(async () => {
       o.onUpdated.forEach(async (t) => await t());
-    }), O(async () => {
+    }), k(async () => {
       o.onUnmounted.forEach(async (t) => await t());
-    }), s.value = Object.keys(r)[0];
-    const i = g(() => r[s.value]);
-    return (t, u) => c(i).show ? (F(), M($(c(i).component), x({ key: 0 }, c(i).props, P(c(i).events)), null, 16)) : C("", !0);
+    }), s.value = Object.keys(n)[0];
+    const f = M(() => n[s.value]);
+    return () => O(f.value.component, {
+      ...f.value.props,
+      ...f.value.events
+    });
   }
-}), I = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: _
-}, Symbol.toStringTag, { value: "Module" }));
-function l(e) {
+};
+function d(e) {
   return e.search(/__(.+)__/) >= 0;
 }
-function a(e, n) {
-  return Object.fromEntries(Object.entries(e).filter(n));
+function h(e, o) {
+  return Object.fromEntries(Object.entries(e).filter(o));
 }
-function S(e) {
-  const n = a(Object.values(e.main)[0], ([i]) => !l(i)), o = a(Object.values(e.main)[0], ([i]) => l(i)), r = e.root === void 0 || e.root === null || e.root === !0 ? !0 : e.root, s = e.children, f = [];
-  return Object.entries(n).forEach(([i, t]) => {
+function I(e) {
+  const o = h(Object.values(e.main)[0], ([t]) => !d(t)), n = h(Object.values(e.main)[0], ([t]) => d(t)), s = e.root === void 0 || e.root === null || e.root === !0 ? !0 : e.root, u = e.children, f = [];
+  return Object.entries(o).forEach(([t, r]) => {
     f.push({
-      path: r ? `/${i}` : i,
-      name: i,
+      path: s ? `/${t}` : t,
+      name: t,
       props: {
-        flow: t,
-        hooks: o
+        flow: r,
+        hooks: n
       },
-      component: _
-    }), s && (f.at(-1).children = S({ ...s, root: !1 }));
+      component: l
+    }), u && (f.at(-1).children = I({ ...u, root: !1 }));
   }), f;
 }
-function q(e) {
-  return (n, ...o) => {
-    if (!Object.keys(e).includes(n))
-      throw new Error(`Called action "${n}" is not defined`);
-    return e[n](...o);
+function D(e) {
+  return (o, ...n) => {
+    if (!Object.keys(e).includes(o))
+      throw new Error(`Called action "${o}" is not defined`);
+    return e[o](...n);
   };
 }
-function z(e) {
+function R(e) {
   return () => {
-    const n = h();
-    return (o, ...r) => {
-      if (!Object.keys(e).includes(o))
-        throw new Error(`Called event "${o}" is not defined`);
-      Object.values(e).forEach((s) => {
-        if (!s(...r))
-          throw new Error(`Emitted event "${o}" is not valid`);
-      }), n.emit(o, ...r);
+    const o = F();
+    return (n, ...s) => {
+      if (!Object.keys(e).includes(n))
+        throw new Error(`Called event "${n}" is not defined`);
+      Object.values(e).forEach((u) => {
+        if (!u(...s))
+          throw new Error(`Emitted event "${n}" is not valid`);
+      }), o.emit(n, ...s);
     };
   };
 }
-function D() {
-  return h().emit;
+function j() {
+  return F().emit;
 }
 export {
-  q as defineAction,
-  z as defineEmit,
-  D as getEmit,
-  S as registerFlowTree
+  z as FlowPage,
+  T as FlowView,
+  D as defineAction,
+  R as defineEmit,
+  j as getEmit,
+  I as registerFlowTree
 };

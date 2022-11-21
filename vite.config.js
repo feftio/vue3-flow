@@ -33,7 +33,7 @@ export default defineConfig(params => {
             }
       },
       lib: {
-        entry: path.resolve(__dirname, 'lib', 'index.js'),
+        entry: path.resolve(__dirname, 'src', 'lib', 'index.js'),
         name: 'vue3-flow',
         fileName: (format) => `vue3-flow.${format}.js`
       }
