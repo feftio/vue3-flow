@@ -1,4 +1,5 @@
-import { defineAction } from '~'
+import { defineAction, defineEmit } from '~'
+import bflow from './bflow'
 
 export function main (ctx) {
   ctx.addPage('APage', {
@@ -15,34 +16,9 @@ export function main (ctx) {
   })
 
   ctx.addFlow('BFlow', {
-    flow: (ctx) => {
-      ctx.addPage('B1Page', {
-        component: () => import('@/pages/B1Page.vue'),
-        props: {
-          action: defineAction({
-            finish: () => {
-              ctx.next()
-            }
-          })
-        }
-      })
-      ctx.addPage('B2Page', {
-        component: () => import('@/pages/B2Page.vue'),
-        props: {
-          action: defineAction({
-            finish: () => {
-              ctx.props.action('finish')
-            }
-          })
-        }
-      })
-    },
-    props: {
-      action: defineAction({
-        finish: () => {
-          ctx.next()
-        }
-      })
+    flow: bflow,
+    events: {
+      finish: () => ctx.next()
     }
   })
 
@@ -51,7 +27,7 @@ export function main (ctx) {
     props: {
       action: defineAction({
         finish: () => {
-
+          ctx.next('BFlow')
         }
       })
     }
