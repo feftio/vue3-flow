@@ -1,6 +1,6 @@
 {
   "name": "vue3-flow",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Dynamic routing components library",
   "author": {
     "name": "Eduard Lik",
@@ -8,7 +8,7 @@
   },
   "keywords": [
     "vue3-flow",
-    "vue3 library"    
+    "vue3 library"
   ],
   "license": "MIT",
   "type": "module",
