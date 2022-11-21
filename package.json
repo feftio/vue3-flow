@@ -17,7 +17,7 @@
     "start": "vite serve",
     "build": "vite build"
   },
-  "dependencies": {
+  "peerDependencies": {
     "vue": "^3.2.41"
   },
   "devDependencies": {
