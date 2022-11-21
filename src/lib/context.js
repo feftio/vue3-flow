@@ -20,7 +20,7 @@ export function addPage (nodes, name, object) {
   }
   if (typeof object.component === 'function') {
     nodes[name].component = markRaw(defineAsyncComponent(object.component))
-  } else if ((typeof object.component.render === 'function')) {
+  } else if ((typeof object.component.render === 'function') || (typeof object.component.setup === 'function')) {
     nodes[name].component = markRaw(object.component)
   } else {
     throw new Error(`Field "component" of "${name}" must be function or object`)
