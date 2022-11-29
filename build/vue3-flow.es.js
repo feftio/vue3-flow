@@ -1,4 +1,4 @@
-import { markRaw as p, defineAsyncComponent as w, reactive as i, ref as _, useAttrs as y, onBeforeMount as U, onBeforeUpdate as m, onBeforeUnmount as B, onMounted as v, onUpdated as E, onUnmounted as k, computed as M, unref as c, openBlock as P, createBlock as b, resolveDynamicComponent as C, mergeProps as A, toHandlers as N, createCommentVNode as q, h as O, getCurrentInstance as F } from "vue";
+import { markRaw as p, defineAsyncComponent as w, reactive as i, ref as _, useAttrs as y, onBeforeMount as U, onBeforeUpdate as m, onBeforeUnmount as B, onMounted as v, onUpdated as E, onUnmounted as k, computed as M, unref as c, openBlock as P, createBlock as b, resolveDynamicComponent as C, mergeProps as A, toHandlers as N, createCommentVNode as V, h as F, getCurrentInstance as O } from "vue";
 function g(e, o, n) {
   if (typeof n == "string")
     return o.value = n, o.value;
@@ -29,9 +29,9 @@ function $(e, o, n) {
     throw new Error(`Field "flow" of "${o}" must be function`);
   e[o].component = p(w(() => Promise.resolve().then(() => H))), e[o].events = "events" in n ? n.events : {}, e[o].show = "show" in n ? n.show : !0, e[o].type = "flow";
 }
-const V = {
+const q = {
   inheritAttrs: !1
-}, l = /* @__PURE__ */ Object.assign(V, {
+}, l = /* @__PURE__ */ Object.assign(q, {
   __name: "FlowPage",
   props: {
     flow: {
@@ -94,7 +94,7 @@ const V = {
       n.onUnmounted.forEach(async (r) => await r());
     }), u.value = Object.keys(s)[0];
     const t = M(() => s[u.value]);
-    return (r, a) => c(t).show ? (P(), b(C(c(t).component), A({ key: 0 }, c(t).props, N(c(t).events)), null, 16)) : q("", !0);
+    return (r, a) => c(t).show ? (P(), b(C(c(t).component), A({ key: 0 }, c(t).props, N(c(t).events)), null, 16)) : V("", !0);
   }
 }), H = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
@@ -114,7 +114,7 @@ const V = {
     }
   },
   setup(e) {
-    return () => O(l, { flow: e.flow, hooks: e.hooks });
+    return () => F(l, { flow: e.flow, hooks: e.hooks });
   }
 }, z = {
   inheritAttrs: !1,
@@ -179,7 +179,7 @@ const V = {
       o.onUnmounted.forEach(async (t) => await t());
     }), s.value = Object.keys(n)[0];
     const f = M(() => n[s.value]);
-    return () => O(f.value.component, {
+    return () => F(f.value.component, {
       ...f.value.props,
       ...f.value.events
     });
@@ -214,7 +214,7 @@ function D(e) {
 }
 function R(e) {
   return () => {
-    const o = F();
+    const o = O();
     return (n, ...s) => {
       if (!Object.keys(e).includes(n))
         throw new Error(`Called event "${n}" is not defined`);
@@ -226,10 +226,11 @@ function R(e) {
   };
 }
 function G() {
-  return F().emit;
+  return O().emit;
 }
 export {
   z as FlowPage,
+  l as FlowPageVue,
   T as FlowView,
   D as defineAction,
   R as defineEmit,
