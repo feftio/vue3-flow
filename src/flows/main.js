@@ -1,4 +1,5 @@
 import { defineAction } from '@@'
+import { onMounted } from 'vue'
 import bflow from './bflow'
 
 export function main (ctx) {
