@@ -1,5 +1,5 @@
 import { reactive, ref, computed, useAttrs, h } from 'vue'
-import { addPage, addFlow, next } from '../context'
+import { next, addPage, addFlow, modify } from '../context'
 
 export default {
   inheritAttrs: false,
@@ -22,10 +22,11 @@ export default {
 
     const context = {
       nodes,
-      get: () => node.value,
+      current: () => node.value,
       next: (name) => next(nodes, node, name),
       addPage: (name, object) => addPage(nodes, name, object),
       addFlow: (name, object) => addFlow(nodes, name, object),
+      modify: (name, callback) => modify(nodes, name, callback),
       store: reactive({}),
       props: useAttrs()
     }

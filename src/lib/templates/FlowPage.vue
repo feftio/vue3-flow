@@ -9,7 +9,7 @@
 </template>
 <script setup>
 import { reactive, ref, computed, useAttrs } from 'vue'
-import { addPage, addFlow, next } from '../context'
+import { next, addPage, addFlow, modify } from '../context'
 
 const props = defineProps({
   flow: {
@@ -30,10 +30,11 @@ const node = ref(null)
 
 const context = {
   nodes,
-  get: () => node.value,
+  current: () => node.value,
   next: (name) => next(nodes, node, name),
   addPage: (name, object) => addPage(nodes, name, object),
   addFlow: (name, object) => addFlow(nodes, name, object),
+  modify: (name, callback) => modify(nodes, name, callback),
   store: reactive({}),
   props: useAttrs()
 }

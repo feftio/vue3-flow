@@ -10,7 +10,7 @@ export default defineConfig(params => {
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
-        '@@': fileURLToPath(new URL('./src/lib', import.meta.url))
+        'vue3-flow': fileURLToPath(new URL('./src/lib', import.meta.url))
       }
     },
     server: {

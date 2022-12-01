@@ -1,26 +1,20 @@
-import { registerFlowTree, FlowPage } from '@@'
+import { FlowPageVue } from 'vue3-flow'
+
+function loadCases () {
+  const routes = []
+  Object.entries(import.meta.glob('@/cases/*/flow.js', { eager: true, import: 'default' })).forEach(([name, flow], index) => {
+    routes.push({
+      path: '/case' + (index + 1),
+      name: 'case' + (index + 1),
+      component: FlowPageVue,
+      props: { flow }
+    })
+  })
+  return routes
+}
 
 const routes = [
-  ...registerFlowTree({
-    main: import.meta.glob('@/flows/main.js', { eager: true })
-  }),
-  {
-    path: '/test',
-    name: 'test',
-    component: FlowPage,
-    props: {
-      flow: (context) => {
-        context.addPage('DPage', {
-          component: () => import('@/pages/DPage.vue'),
-          events: {
-            onFinish: () => {
-              console.dir('finish emitted')
-            }
-          }
-        })
-      }
-    }
-  }
+  ...loadCases()
 ]
 
 export default routes

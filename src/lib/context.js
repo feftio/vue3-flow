@@ -1,4 +1,5 @@
 import { markRaw, defineAsyncComponent } from 'vue'
+import { transformFlowToNode, transformNodeToFlow, transformNodeToPage, transformPageToNode } from './transforms'
 
 export function next (nodes, page, name) {
   if (typeof name === 'string') {
@@ -13,7 +14,9 @@ export function next (nodes, page, name) {
 }
 
 export function addPage (nodes, name, object) {
-  if (name in nodes) { throw new Error(`Node "${name}" is already exist`) }
+  if (name in nodes) {
+    throw new Error(`Node "${name}" is already exist`)
+  }
   nodes[name] = {}
   if (!('component' in object)) {
     throw new Error(`Field "component" of "${name}" is not defined`)
@@ -32,7 +35,9 @@ export function addPage (nodes, name, object) {
 }
 
 export function addFlow (nodes, name, object) {
-  if (name in nodes) { throw new Error(`Node "${name}" is already exist`) }
+  if (name in nodes) {
+    throw new Error(`Node "${name}" is already exist`)
+  }
   nodes[name] = {}
   nodes[name].props = ('props' in object) ? object.props : {}
   if (!('flow' in object)) {
@@ -47,4 +52,22 @@ export function addFlow (nodes, name, object) {
   nodes[name].events = ('events' in object) ? object.events : {}
   nodes[name].show = ('show' in object) ? object.show : true
   nodes[name].type = 'flow'
+}
+
+export function modify (nodes, name, callback) {
+  if (!(name in nodes)) {
+    throw new Error(`Node "${name}" is not exist`)
+  }
+  let modified
+  const node = nodes[name]
+  if (node.type === 'page') {
+    modified = callback(transformNodeToPage(node))
+    Object.assign(node, transformPageToNode(modified))
+  } else if (node.type === 'flow') {
+    modified = callback(transformNodeToFlow(node))
+    Object.assign(node, transformFlowToNode(modified))
+  } else {
+    throw new Error(`Node type "${node.type}" is invalid`)
+  }
+  return node
 }
