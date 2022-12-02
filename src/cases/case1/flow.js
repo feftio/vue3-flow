@@ -6,36 +6,26 @@ export default (context) => {
     component: ActorsPage,
     events: {
       tap: (actor) => {
-        // context.modify('ActorPage', {
-        //   props: {
-        //     actor
-        //   }
-        // })
-        // context.next('ActorPage')
-        // context.modify('Flow', (node) => {
-        //   console.dir(node)
-        // })
-
-        context.modify('ActorPage', (page) => {
-          page.props.actor = actor
-          return page
+        context.modify('ActorPage', options => {
+          options.props.actor = actor
+          return options
         })
-
-        console.dir(context.nodes)
-
-        context.next('ActorPage')
+        context.next(1)
       }
     }
   })
 
   context.addPage('ActorPage', {
-    component: ActorPage
+    component: ActorPage,
+    events: {
+      back: () => context.next('ActorsPage')
+    }
   })
 
-  context.addFlow('Flow', {
+  context.addFlow('ErrorFlow', {
     flow: (context) => {
-      context.addPage('ActorPage', {
-        component: ActorPage
+      context.addPage('ErrorPage', {
+        component: () => import('../pages/ErrorPage.vue')
       })
     }
   })

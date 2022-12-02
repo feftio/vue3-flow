@@ -32,8 +32,8 @@ const context = {
   nodes,
   current: () => node.value,
   next: (name) => next(nodes, node, name),
-  addPage: (name, object) => addPage(nodes, name, object),
-  addFlow: (name, object) => addFlow(nodes, name, object),
+  addPage: (name, options) => addPage(nodes, name, options),
+  addFlow: (name, options) => addFlow(nodes, name, options),
   modify: (name, callback) => modify(nodes, name, callback),
   store: reactive({}),
   props: useAttrs()
@@ -45,7 +45,7 @@ props.flow(context)
 
 if ('__after__' in props.hooks) props.hooks.__after__(context)
 
-node.value = Object.keys(nodes)[0]
+node.value ??= Object.keys(nodes)[0]
 
 const current = computed(() => nodes[node.value])
 </script>

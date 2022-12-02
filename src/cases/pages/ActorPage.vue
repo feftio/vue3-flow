@@ -10,6 +10,9 @@
       {{ film }}
     </li>
   </ul>
+  <button @click="emit('back')">
+    Back
+  </button>
 </template>
 <script setup>
 const props = defineProps({
@@ -18,4 +21,5 @@ const props = defineProps({
     required: true
   }
 })
+const emit = defineEmits(['back'])
 </script>

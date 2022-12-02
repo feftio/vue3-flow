@@ -1,65 +1,54 @@
-import { markRaw, defineAsyncComponent } from 'vue'
-import { transformFlowToNode, transformNodeToFlow, transformNodeToPage, transformPageToNode } from './transforms'
+import {
+  createPage, createFlow
+} from './creations'
+import {
+  transformFlowToNode, transformNodeToFlow, transformNodeToPage, transformPageToNode
+} from './transforms'
 
 export function next (nodes, page, name) {
-  if (typeof name === 'string') {
+  if (typeof name === 'string' && (!(name in nodes))) {
+    throw new Error(`Node "${name}" is not defined`)
+  }
+
+  if (typeof name === 'string' && name in nodes) {
     page.value = name
     return page.value
   }
+
   const pageNames = Object.keys(nodes)
   const pageIndex = pageNames.indexOf(page.value)
+
   if (pageIndex + 1 < pageNames.length) {
     page.value = pageNames[pageIndex + 1]
   }
 }
 
-export function addPage (nodes, name, object) {
+export function addPage (nodes, name, options) {
   if (name in nodes) {
     throw new Error(`Node "${name}" is already exist`)
   }
-  nodes[name] = {}
-  if (!('component' in object)) {
-    throw new Error(`Field "component" of "${name}" is not defined`)
-  }
-  if (typeof object.component === 'function') {
-    nodes[name].component = markRaw(defineAsyncComponent(object.component))
-  } else if ((typeof object.component.render === 'function') || (typeof object.component.setup === 'function')) {
-    nodes[name].component = markRaw(object.component)
-  } else {
-    throw new Error(`Field "component" of "${name}" must be function or object`)
-  }
-  nodes[name].props = ('props' in object) ? object.props : {}
-  nodes[name].events = ('events' in object) ? object.events : {}
-  nodes[name].show = ('show' in object) ? object.show : true
-  nodes[name].type = 'page'
+
+  nodes[name] = createPage(name, options)
+  return nodes[name]
 }
 
-export function addFlow (nodes, name, object) {
+export function addFlow (nodes, name, options) {
   if (name in nodes) {
     throw new Error(`Node "${name}" is already exist`)
   }
-  nodes[name] = {}
-  nodes[name].props = ('props' in object) ? object.props : {}
-  if (!('flow' in object)) {
-    throw new Error(`Field "flow" of "${name}" is not defined`)
-  }
-  if (typeof object.flow === 'function') {
-    nodes[name].props = { ...nodes[name].props, flow: object.flow }
-  } else {
-    throw new Error(`Field "flow" of "${name}" must be function`)
-  }
-  nodes[name].component = markRaw(defineAsyncComponent(() => import('./templates/FlowPage.vue')))
-  nodes[name].events = ('events' in object) ? object.events : {}
-  nodes[name].show = ('show' in object) ? object.show : true
-  nodes[name].type = 'flow'
+
+  nodes[name] = createFlow(name, options)
+  return nodes[name]
 }
 
 export function modify (nodes, name, callback) {
   if (!(name in nodes)) {
     throw new Error(`Node "${name}" is not exist`)
   }
+
   let modified
   const node = nodes[name]
+
   if (node.type === 'page') {
     modified = callback(transformNodeToPage(node))
     Object.assign(node, transformPageToNode(modified))
@@ -69,5 +58,6 @@ export function modify (nodes, name, callback) {
   } else {
     throw new Error(`Node type "${node.type}" is invalid`)
   }
+
   return node
 }
