@@ -2,7 +2,7 @@ import { markRaw as w, defineAsyncComponent as _, reactive as l, ref as y, useAt
 function p(e) {
   return Object.prototype.toString.call(e) === "[object Object]";
 }
-function j(e) {
+function g(e) {
   return typeof e == "boolean";
 }
 function A(e, o) {
@@ -15,7 +15,7 @@ function A(e, o) {
     t.component = w(o.component);
   else
     throw new Error(`Option "component" of "${e}" node must be function or object`);
-  return t.props = p(o.props) ? o.props : {}, t.events = p(o.events) ? o.events : {}, t.show = j(o.show) ? o.show : !0, t.type = "page", t;
+  return t.props = p(o.props) ? o.props : {}, t.events = p(o.events) ? o.events : {}, t.show = g(o.show) ? o.show : !0, t.type = "page", t;
 }
 function V(e, o) {
   const t = {};
@@ -25,7 +25,7 @@ function V(e, o) {
     t.props = { ...t.props, flow: o.flow };
   else
     throw new Error(`Option "flow" of "${e}" node must be function`);
-  return t.component = w(_(() => Promise.resolve().then(() => z))), t.events = p(o.events) ? o.events : {}, t.show = j(o.show) ? o.show : !0, t.type = "flow", t;
+  return t.component = w(_(() => Promise.resolve().then(() => z))), t.events = p(o.events) ? o.events : {}, t.show = g(o.show) ? o.show : !0, t.type = "flow", t;
 }
 function q(e) {
   if (e.type !== "page")
@@ -66,7 +66,7 @@ function H(e) {
     show: e.show
   };
 }
-function g(e, o, t) {
+function j(e, o, t) {
   if (typeof t == "string" && !(t in e))
     throw new Error(`Node "${t}" is not defined`);
   if (typeof t == "string" && t in e)
@@ -118,7 +118,7 @@ const I = {
     const o = e, t = l({}), r = y(null), n = {
       nodes: t,
       current: () => r.value,
-      next: (f) => g(t, r, f),
+      next: (f) => j(t, r, f),
       addPage: (f, i) => k(t, f, i),
       addFlow: (f, i) => E(t, f, i),
       modify: (f, i) => F(t, f, i),
@@ -168,7 +168,7 @@ const I = {
     const o = l({}), t = y(null), r = {
       nodes: o,
       current: () => t.value,
-      next: (s) => g(o, t, s),
+      next: (s) => j(o, t, s),
       addPage: (s, f) => k(o, s, f),
       addFlow: (s, f) => E(o, s, f),
       modify: (s, f) => F(o, s, f),
