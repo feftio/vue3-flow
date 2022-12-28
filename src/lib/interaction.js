@@ -5,6 +5,7 @@ export function defineAction (actions) {
     if (!Object.keys(actions).includes(name)) {
       throw new Error(`Called action "${name}" is not defined`)
     }
+
     return actions[name](...args)
   }
 }
@@ -16,6 +17,7 @@ export function defineEmit (validators) {
       if (!Object.keys(validators).includes(event)) {
         throw new Error(`Called event "${event}" is not defined`)
       }
+
       Object.values(validators).forEach(validator => {
         if (!validator(...args)) {
           throw new Error(`Emitted event "${event}" is not valid`)

@@ -5,21 +5,21 @@ import {
   transformFlowToNode, transformNodeToFlow, transformNodeToPage, transformPageToNode
 } from './transforms'
 
-export function next (nodes, page, name) {
+export function next (nodes, node, name) {
   if (typeof name === 'string' && (!(name in nodes))) {
     throw new Error(`Node "${name}" is not defined`)
   }
 
   if (typeof name === 'string' && name in nodes) {
-    page.value = name
-    return page.value
+    node.value = name
+    return node.value
   }
 
-  const pageNames = Object.keys(nodes)
-  const pageIndex = pageNames.indexOf(page.value)
+  const nodeNames = Object.keys(nodes)
+  const nodeIndex = nodeNames.indexOf(node.value)
 
-  if (pageIndex + 1 < pageNames.length) {
-    page.value = pageNames[pageIndex + 1]
+  if (nodeIndex + 1 < nodeNames.length) {
+    node.value = nodeNames[nodeIndex + 1]
   }
 }
 

@@ -26,6 +26,7 @@ export function registerFlowTree (tree) {
       },
       component: FlowPage
     })
+
     if (children) routes.at(-1).children = registerFlowTree({ ...children, root: false })
   })
   return routes

@@ -42,5 +42,6 @@ export function createFlow (name, options) {
   node.events = (isObject(options.events)) ? options.events : {}
   node.show = (isBoolean(options.show)) ? options.show : true
   node.type = 'flow'
+
   return node
 }
